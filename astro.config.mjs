@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://mkom.github.io',
+  site: 'https://mkom.pages.dev',
   vite: {
     plugins: [tailwindcss()],
   },
