@@ -1,0 +1,9 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://portfolio-nine-omega-39.vercel.app/sitemap-index.xml
+
+# Disallow specific paths (if any)
+# Disallow: /private/

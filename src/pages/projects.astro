@@ -1,0 +1,128 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const getPlaceholderImage = (name: string) =>
+  `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&size=600x400&background=f3f4f6&color=6b7280&bold=true&font-size=0.4`;
+
+const projects = [
+  {
+    name: 'SKCK Online Dashboard',
+    client: 'Baintelkam Polri',
+    role: 'Frontend Engineer',
+    tech: ['Next.js', 'React', 'TypeScript'],
+    description: 'Built modular and reusable UI components for dashboard system. Integrated frontend with backend APIs using Axios & React Query. Optimized layout for WebView usage and cross-device compatibility.',
+    link: null,
+    image: '/SKCK_Online_Dashboard.png',
+    nda: true
+  },
+  {
+    name: 'Cloud Photo',
+    client: 'Telkomsel Cloud Photo',
+    role: 'Frontend Developer',
+    tech: ['JavaScript', 'TCMMP Mini Program', 'Tencent Cloud'],
+    description: 'Developed mini program with routing system and API integration. Built interactive UI with focus on usability and performance.',
+    link: null,
+    image: '/cloud_photo.png',
+    nda: true
+  },
+  {
+    name: 'ArkoPay',
+    client: 'ArkoPay',
+    role: 'Frontend Developer & Maintenance',
+    tech: ['Wordpress', 'Airtable'],
+    description: 'Led frontend development and ongoing maintenance. Built dynamic pages integrated with Airtable database. Improved content structure and scalability.',
+    link: 'https://arkopay.com',
+    image: '/arkopay.png',
+    nda: false
+  },
+  {
+    name: 'Next Steps Idaho',
+    client: 'Idaho Government',
+    role: 'Frontend Developer',
+    tech: ['Wordpress', 'React'],
+    description: 'Maintained and enhanced website with real-time API integration. Managed dynamic content structure and updates.',
+    link: 'https://nextsteps.idaho.gov',
+    image: '/nextsteps.png',
+    nda: false
+  },
+  {
+    name: 'Frogsxy Platform',
+    client: 'Frogsxy',
+    role: 'Frontend Developer',
+    tech: ['React', 'Next.js', 'SSR/SSG'],
+    description: 'Built dynamic page rendering system using Next.js to support large-scale SEO pages. Developed scalable frontend architecture for Programmatic SEO strategy. Integrated structured data and optimized metadata.',
+    link: 'https://frogsxy.com',
+    image: '/frogsxy.png',
+    nda: false
+  }
+];
+---
+
+<BaseLayout
+  title="Projects - Muhammad Komar"
+  description="A collection of web development projects by Muhammad Komar, Frontend Engineer specializing in React.js and Next.js applications."
+>
+  <section class="max-w-4xl mx-auto px-6 py-12">
+    <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">Projects</h1>
+    <p class="text-lg text-gray-600 dark:text-gray-400 mb-12">
+      A selection of projects I've worked on throughout my career.
+    </p>
+
+    <div class="grid gap-8">
+      {projects.map((project) => (
+        <article class="border border-gray-200 dark:border-gray-800 rounded-lg overflow-hidden hover:border-gray-300 dark:hover:border-gray-700 transition-colors">
+          <div class="aspect-video bg-gray-100 dark:bg-gray-900 relative">
+            <img
+              src={project.image}
+              alt={`${project.name} screenshot`}
+              width="600"
+              height="400"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+            {project.nda && (
+              <div class="absolute top-3 right-3">
+                <span class="px-3 py-1 bg-blue-700 text-white text-xs rounded-full backdrop-blur-sm">
+                  NDA
+                </span>
+              </div>
+            )}
+          </div>
+
+          <div class="p-6">
+            <div class="flex items-start justify-between mb-3">
+              <div>
+                <h2 class="text-xl font-semibold text-gray-900 dark:text-white">{project.name}</h2>
+                <p class="text-sm text-gray-500 dark:text-gray-400">{project.client} | {project.role}</p>
+              </div>
+            </div>
+
+            <p class="text-gray-600 dark:text-gray-400 mb-4 text-sm leading-relaxed">{project.description}</p>
+
+            <div class="flex flex-wrap gap-2 mb-4">
+              {project.tech.map((t) => (
+                <span class="px-3 py-1 bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 text-sm rounded">
+                  {t}
+                </span>
+              ))}
+            </div>
+
+            {project.link && (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium"
+              >
+                Visit Site
+                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

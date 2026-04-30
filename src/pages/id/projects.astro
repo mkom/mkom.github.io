@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const getPlaceholderImage = (name: string) =>
+  `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&size=600x400&background=f3f4f6&color=6b7280&bold=true&font-size=0.4`;
+
+const projects = [
+  {
+    name: 'SKCK Online Dashboard',
+    client: 'Baintelkam Polri',
+    role: 'Frontend Engineer',
+    tech: ['Next.js', 'React', 'TypeScript'],
+    description: 'Membangun komponen UI yang modular dan reusable untuk sistem dashboard. Mengintegrasikan frontend dengan backend APIs menggunakan Axios & React Query. Mengoptimasi layout untuk penggunaan WebView dan kompatibilitas antar device.',
+    link: null,
+    image: '/SKCK_Online_Dashboard.png',
+    nda: true
+  },
+  {
+    name: 'Cloud Photo',
+    client: 'Telkomsel Cloud Photo',
+    role: 'Frontend Developer',
+    tech: ['JavaScript', 'TCMMP Mini Program', 'Tencent Cloud'],
+    description: 'Mengembangkan mini program dengan sistem routing dan integrasi API. Membangun UI interaktif dengan fokus pada usability dan performa. Memastikan alur pengguna yang smooth di seluruh fitur aplikasi.',
+    link: null,
+    image: '/cloud_photo.png',
+    nda: true
+  },
+  {
+    name: 'ArkoPay',
+    client: 'ArkoPay',
+    role: 'Frontend Developer & Maintenance',
+    tech: ['Wordpress', 'Airtable'],
+    description: 'Memimpin pengembangan frontend dan pemeliharaan ongoing. Membangun halaman dinamis yang terintegrasi dengan database Airtable. Meningkatkan struktur konten dan skalabilitas.',
+    link: 'https://arkopay.com',
+    image: '/arkopay.png',
+    nda: false
+  },
+  {
+    name: 'Next Steps Idaho',
+    client: 'Idaho Government',
+    role: 'Frontend Developer',
+    tech: ['Wordpress', 'React'],
+    description: 'Memelihara dan meningkatkan website dengan integrasi API real-time. Mengelola struktur konten dinamis dan pembaruan.',
+    link: 'https://nextsteps.idaho.gov',
+    image: '/nextsteps.png',
+    nda: false
+  },
+  {
+    name: 'Frogsxy Platform',
+    client: 'Frogsxy',
+    role: 'Frontend Developer',
+    tech: ['React', 'Next.js', 'SSR/SSG'],
+    description: 'Membangun sistem rendering halaman dinamis menggunakan Next.js untuk mendukung halaman SEO berskala besar. Mengembangkan arsitektur frontend yang scalable untuk strategi Programmatic SEO. Mengintegrasikan structured data dan mengoptimasi metadata.',
+    link: 'https://frogsxy.com',
+    image: '/frogsxy.png',
+    nda: false
+  }
+];
+---
+
+<BaseLayout
+  title="Proyek - Muhammad Komar"
+  description="Kumpulan proyek pengembangan web oleh Muhammad Komar, Frontend Engineer yang mengkhususkan diri dalam aplikasi React.js dan Next.js."
+  canonicalPath="/id/projects"
+>
+  <section class="max-w-4xl mx-auto px-4 md:px-6 py-12">
+    <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">Proyek</h1>
+    <p class="text-lg text-gray-600 dark:text-gray-400 mb-12">
+      Sejumlah proyek yang pernah saya kerjakan sepanjang karir.
+    </p>
+
+    <div class="grid gap-8">
+      {projects.map((project) => (
+        <article class="border border-gray-200 dark:border-gray-800 rounded-lg overflow-hidden hover:border-gray-300 dark:hover:border-gray-700 transition-colors">
+          <div class="aspect-video bg-gray-100 dark:bg-gray-900 relative">
+            <img
+              src={(project.image)}
+              alt={`Tampilan ${project.name}`}
+              width="600"
+              height="400"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+            {project.nda && (
+              <div class="absolute top-3 right-3">
+                <span class="px-3 py-1 bg-blue-700 text-white text-xs rounded-full backdrop-blur-sm">
+                  NDA
+                </span>
+              </div>
+            )}
+          </div>
+
+          <div class="p-6">
+            <div class="flex items-start justify-between mb-3">
+              <div>
+                <h2 class="text-xl font-semibold text-gray-900 dark:text-white">{project.name}</h2>
+                <p class="text-sm text-gray-500 dark:text-gray-400">{project.client} | {project.role}</p>
+              </div>
+            </div>
+
+            <p class="text-gray-600 dark:text-gray-400 mb-4 text-sm leading-relaxed">{project.description}</p>
+
+            <div class="flex flex-wrap gap-2 mb-4">
+              {project.tech.map((t) => (
+                <span class="px-3 py-1 bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 text-sm rounded">
+                  {t}
+                </span>
+              ))}
+            </div>
+
+            {project.link && (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium"
+              >
+                Kunjungi Situs
+                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

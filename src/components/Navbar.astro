@@ -1,0 +1,136 @@
+---
+const navLinks = [
+  { href: '/', label: 'Home', hrefId: '/id/' },
+  { href: '/about', label: 'About', hrefId: '/id/about' },
+  { href: '/projects', label: 'Projects', hrefId: '/id/projects' },
+  { href: '/contact', label: 'Contact', hrefId: '/id/contact' },
+];
+
+const currentPath = Astro.url.pathname;
+const isIndonesian = currentPath.startsWith('/id');
+const currentLang = isIndonesian ? 'id' : 'en';
+---
+
+<header class="border-b border-gray-200 dark:border-gray-800 sticky top-0 bg-white/80 dark:bg-gray-950/80 backdrop-blur-sm z-50">
+  <nav class="max-w-4xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
+    <a href={isIndonesian ? '/id/' : '/'} class="text-xl font-semibold text-gray-900 dark:text-white">
+      MK
+    </a>
+
+    <!-- Desktop Navigation -->
+    <ul class="hidden md:flex items-center gap-4 lg:gap-6">
+      {navLinks.map((link) => (
+        <li>
+          <a
+            href={isIndonesian ? link.hrefId : link.href}
+            class:list={[
+              'text-sm font-medium transition-colors',
+              currentPath === link.href || currentPath === link.hrefId + 'index.html'
+                ? 'text-gray-900 dark:text-white'
+                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+            ]}
+          >
+            {isIndonesian && link.hrefId ? link.label : link.label}
+          </a>
+        </li>
+      ))}
+
+      <!-- CV Download Button -->
+      <li>
+        <a
+          href="/Muhammad_Komar_CV.pdf"
+          download="Muhammad_Komar_CV.pdf"
+          class="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+          title="Download CV"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          <span class="hidden lg:inline">CV</span>
+        </a>
+      </li>
+
+      <!-- Language Toggle -->
+      <li>
+        <a
+          href={isIndonesian ? '/' : '/id/'}
+          class="inline-flex items-center px-2 py-1 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors border border-gray-300 dark:border-gray-700 rounded"
+        >
+          {isIndonesian ? 'EN' : 'ID'}
+        </a>
+      </li>
+    </ul>
+
+    <!-- Mobile Hamburger Button -->
+    <button
+      id="menu-toggle"
+      class="md:hidden p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu Drawer -->
+  <div id="mobile-menu" class="md:hidden hidden border-t border-gray-200 dark:border-gray-800">
+    <ul class="px-4 md:px-6 py-4 space-y-3">
+      {navLinks.map((link) => (
+        <li>
+          <a
+            href={isIndonesian ? link.hrefId : link.href}
+            class:list={[
+              'block text-base font-medium transition-colors',
+              currentPath === link.href || currentPath === link.hrefId + 'index.html'
+                ? 'text-gray-900 dark:text-white'
+                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+            ]}
+          >
+            {isIndonesian && link.hrefId ? link.label : link.label}
+          </a>
+        </li>
+      ))}
+
+      <!-- Mobile CV Link -->
+      <li>
+        <a
+          href="/Muhammad_Komar_CV.pdf"
+          download="Muhammad_Komar_CV.pdf"
+          class="block text-base font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+        >
+          Download CV
+        </a>
+      </li>
+
+      <!-- Mobile Language Toggle -->
+      <li>
+        <a
+          href={isIndonesian ? '/' : '/id/'}
+          class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors border border-gray-300 dark:border-gray-700 rounded"
+        >
+          {isIndonesian ? 'English' : 'Bahasa Indonesia'}
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuIcon = document.getElementById('menu-icon');
+
+  menuToggle?.addEventListener('click', () => {
+    const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+    menuToggle.setAttribute('aria-expanded', (!isExpanded).toString());
+    mobileMenu?.classList.toggle('hidden');
+
+    if (!isExpanded) {
+      menuIcon?.setAttribute('d', 'M6 18L18 6M6 6l12 12');
+    } else {
+      menuIcon?.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+    }
+  });
+</script>

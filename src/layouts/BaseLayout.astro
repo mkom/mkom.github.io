@@ -1,0 +1,104 @@
+---
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  canonicalPath?: string;
+}
+
+const { title, description = "Frontend Engineer with 6+ years experience building scalable web applications with React.js and Next.js", image = "/og-image.png", type = "website", canonicalPath } = Astro.props;
+
+const currentPath = canonicalPath || Astro.url.pathname;
+const isIndonesian = currentPath.startsWith('/id');
+
+const siteUrl = 'https://portfolio-nine-omega-39.vercel.app';
+const canonicalURL = new URL(currentPath, siteUrl);
+const siteName = "Muhammad Komar Portfolio";
+
+const enPath = currentPath.replace('/id', '') || '/';
+const idPath = currentPath.startsWith('/id') ? currentPath : '/id' + (currentPath === '/' ? '' : currentPath);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Muhammad Komar",
+  "url": canonicalURL.toString(),
+  "jobTitle": "Frontend Engineer",
+  "knowsAbout": ["React.js", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "Astro"],
+  "address": { "@type": "PostalAddress", "addressLocality": "Bogor", "addressCountry": "ID" },
+  "contactPoint": { "@type": "ContactPoint", "email": "muh.komar@gmail.com", "contactType": "personal" }
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": siteName,
+  "url": siteUrl,
+  "description": description
+};
+---
+
+<!DOCTYPE html>
+<html lang={isIndonesian ? 'id' : 'en'}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="author" content="Muhammad Komar" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalURL.toString()} />
+
+    <!-- Alternate languages (hreflang) -->
+    <link rel="alternate" hreflang="en" href={new URL(enPath, siteUrl).toString()} />
+    <link rel="alternate" hreflang="id" href={new URL(idPath, siteUrl).toString()} />
+    <link rel="alternate" hreflang="x-default" href={new URL(enPath, siteUrl).toString()} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalURL.toString()} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:image" content={new URL(image, siteUrl).toString()} />
+    <meta property="og:locale" content={isIndonesian ? 'id_ID' : 'en_US'} />
+    <meta property="og:locale:alternate" content={isIndonesian ? 'en_US' : 'id_ID'} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL.toString()} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(image, siteUrl).toString()} />
+
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    {currentPath === '/' && <script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />}
+  </head>
+  <body class="min-h-screen flex flex-col bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 antialiased">
+    <Navbar />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <footer class="border-t border-gray-200 dark:border-gray-800">
+      <div class="max-w-4xl mx-auto px-4 md:px-6 py-6 text-center text-sm text-gray-500 dark:text-gray-400">
+        &copy; {new Date().getFullYear()} Muhammad Komar. All rights reserved.
+      </div>
+    </footer>
+  </body>
+</html>
