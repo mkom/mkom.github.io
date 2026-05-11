@@ -13,14 +13,48 @@ const experience = [
   {
     company: 'Kreatif Infotek Global',
     role: 'Frontend Developer',
-    period: '2019 - 2026',
-    description: 'Developed responsive web applications using React.js. Integrated third-party services (Airtable, CRM APIs). Improved performance, SEO, and mobile responsiveness.'
+    period: '2024 - 2026',
+    points: [
+      'Developed responsive and scalable web applications using React.js and modern frontend stack',
+      'Integrated third-party services such as Airtable and CRM APIs to automate workflows',
+      'Improved website performance, SEO structure, and mobile responsiveness',
+      'Collaborated with UI/UX designers and backend engineers to deliver production-ready features'
+    ]
+  },
+  {
+    company: 'Kreatif Infotek Global',
+    role: 'Frontend Developer',
+    period: '2019 - 2024',
+    points: [
+      'Developed responsive and production-ready web applications',
+      'Built reusable and modular frontend architecture for scalable development',
+      'Integrated REST APIs, Airtable, and third-party services to automate workflows',
+      'Improved website performance, SEO structure, and mobile responsiveness',
+      'Collaborated closely with UI/UX designers and backend engineers in agile environments',
+      'Delivered cross-device compatible applications optimized for WebView and mobile platforms'
+    ]
+  },
+  {
+    company: 'Strategies 360',
+    role: 'Web Developer (WordPress & Frontend)',
+    period: '2015 - 2019',
+    points: [
+      'Developed and maintained custom WordPress themes and plugins',
+      'Built and enhanced web applications for multiple clients across industries',
+      'Focused on frontend implementation, UI consistency, and usability improvements',
+      'Optimized website performance and user experience'
+    ]
   },
   {
     company: 'Upword Technologies',
     role: 'Web Developer (WordPress & Frontend)',
-    period: '2013 - 2019',
-    description: 'Developed custom WordPress themes and plugins. Built web applications for multiple clients. Focused on frontend implementation and usability.'
+    period: '2013 - 2015',
+    points: [
+      'Developed and maintained custom WordPress themes and plugins',
+      'Built and enhanced web applications for multiple clients across industries',
+      'Focused on frontend implementation, UI consistency, and usability improvements',
+      'Optimized website performance and user experience'
+    ]
   }
 ];
 
@@ -103,7 +137,11 @@ const projects = [
               <span class="text-sm text-gray-500 dark:text-gray-400">{job.period}</span>
             </div>
             <p class="text-gray-600 dark:text-gray-400 mb-2">{job.role}</p>
-            <p class="text-gray-600 dark:text-gray-400 text-sm">{job.description}</p>
+            <ul class="space-y-1">
+              {job.points.map((point) => (
+                <li class="text-gray-600 dark:text-gray-400 text-sm">{point}</li>
+              ))}
+            </ul>
           </div>
         ))}
       </div>
